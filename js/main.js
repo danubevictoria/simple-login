@@ -39,35 +39,37 @@ $(document).ready(function (){
 		var password_input = document.getElementById('password-input').value;
 
 		// Compare the email address and password to each account in accounts
-		for (var i = 0; i < accounts.length; i++) {
-			if (accounts[i].emailaddress == email_input) {
-				if (accounts[i].password == password_input) {
-					$('.alert-success').removeClass("result");
-					$('.alert-danger').removeClass("result");
+		if (email_input != null && password_input != null) {
+			for (var i = 0; i < accounts.length; i++) {
+				if (accounts[i].emailaddress == email_input) {
+					if (accounts[i].password == password_input) {
+						$('.alert-success').removeClass("result");
+						$('.alert-danger').removeClass("result");
 
-					$('.alert-success').addClass("result");
-					$('.alert-success').fadeIn("slow");
+						$('.alert-success').addClass("result");
+						$('.alert-success').fadeIn("slow");
 
-					// For efficiency, once found break out of the loop
-					return;
+						// For efficiency, once found break out of the loop
+						return;
+					} else {
+						$('.alert-success').removeClass("result");
+						$('.alert-danger').removeClass("result");
+
+						$('.alert-danger').addClass("result");
+						$('.alert-danger').fadeIn("slow");
+					}
 				} else {
-					$('.alert-success').removeClass("result");
-					$('.alert-danger').removeClass("result");
+					continue;
+				}		
+			}
 
-					$('.alert-danger').addClass("result");
-					$('.alert-danger').fadeIn("slow");
-				}
-			} else {
-				continue;
-			}		
+			// If no account was ever found, then display unsuccessful login
+			$('.alert-success').removeClass("result");
+			$('.alert-danger').removeClass("result");
+
+			$('.alert-danger').addClass("result");
+			$('.alert-danger').fadeIn("slow");	
 		}
-
-		// If no account was ever found, then display unsuccessful login
-		$('.alert-success').removeClass("result");
-		$('.alert-danger').removeClass("result");
-
-		$('.alert-danger').addClass("result");
-		$('.alert-danger').fadeIn("slow");	
 	}	
 
 	// When user clicks on login button, attempt to login
